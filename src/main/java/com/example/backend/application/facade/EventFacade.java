@@ -1,18 +1,13 @@
 package com.example.backend.application.facade;
 
-import com.example.backend.domain.event.service.query.EventQueryService;
-import com.example.backend.domain.user.service.UserService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import com.example.backend.domain.event.dto.EventDetail;
+import com.example.backend.domain.event.dto.EventResponseDto;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-@Service
-@Slf4j
-@RequiredArgsConstructor
-public class EventFacade {
+public interface EventFacade {
 
-    private final EventQueryService eventQueryService;
-    private final UserService userService;
-
+    EventResponseDto.SearchList getEventList(OAuth2User user);
+    EventDetail getEventDetail(OAuth2User user, Long eventId);
+    Boolean getEventIsActive(Long eventId);
 
 }

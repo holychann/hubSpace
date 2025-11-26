@@ -184,6 +184,12 @@ public class UserService extends DefaultOAuth2UserService implements UserDetails
                 .orElseThrow(() -> new UsernameNotFoundException("해당 회원이 존재하지 않습니다."));
     }
 
+    @Transactional(readOnly = true)
+    public UserEntity findUserBySocialEmail(String email) {
+        return userRepository.findByEmailAndIsSocial(email, false)
+                .orElseThrow(() -> new UsernameNotFoundException("해당 회원이 존재하지 않습니다."));
+    }
+
     @Transactional
     public void addGoogleAccessToken(String username, String accessToken) {
         UserEntity user = userRepository.findByUsernameAndIsLock(username, false)

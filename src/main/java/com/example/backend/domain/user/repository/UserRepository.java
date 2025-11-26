@@ -13,6 +13,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUsernameAndIsSocial(String username, Boolean social);
     Optional<UserEntity> findByUsernameAndIsLockAndIsSocial(String username, Boolean isLock, Boolean isSocial);
     Optional<UserEntity> findByUsernameAndIsLock(String username, Boolean isLock);
+    Optional<UserEntity> findByEmailAndIsSocial(String email, Boolean isSocial);
 
     @Transactional
     void deleteByUsername(String username);
