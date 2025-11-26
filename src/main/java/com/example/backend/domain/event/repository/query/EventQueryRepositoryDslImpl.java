@@ -17,7 +17,7 @@ public class EventQueryRepositoryDslImpl implements EventQueryRepositoryDsl {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<EventWithMetadataDto> findByUserIdAndIsActive(Long userId, Boolean isActive) {
+    public List<EventWithMetadataDto> findByUserIdAndIsActive(UserEntity userEntity, Boolean isActive) {
 
         QEventMetadataEntity metadata = QEventMetadataEntity.eventMetadataEntity;
         QEventEntity event = QEventEntity.eventEntity;
@@ -30,12 +30,12 @@ public class EventQueryRepositoryDslImpl implements EventQueryRepositoryDsl {
                 ))
                 .from(metadata)
                 .join(metadata.event, event)
-                .where(event.userId.id.eq(userId).and(event.isActive.eq(isActive)))
+                .where(event.user.eq(userEntity).and(event.isActive.eq(isActive)))
                 .fetch();
     }
 
     @Override
-    public EventWithMetadataDto findByUserIdAndEventIdAndIsActive(Long userId, Long eventId, Boolean isActive) {
+    public EventWithMetadataDto findByUserIdAndEventIdAndIsActive(UserEntity userEntity, Long eventId, Boolean isActive) {
 
         QEventMetadataEntity metadata = QEventMetadataEntity.eventMetadataEntity;
         QEventEntity event = QEventEntity.eventEntity;
@@ -48,7 +48,7 @@ public class EventQueryRepositoryDslImpl implements EventQueryRepositoryDsl {
                 ))
                 .from(metadata)
                 .join(metadata.event, event)
-                .where(event.userId.id.eq(userId).and(event.id.eq(eventId).and(event.isActive.eq(isActive))))
+                .where(event.user.eq(userEntity).and(event.id.eq(eventId).and(event.isActive.eq(isActive))))
                 .fetchOne();
     }
 }

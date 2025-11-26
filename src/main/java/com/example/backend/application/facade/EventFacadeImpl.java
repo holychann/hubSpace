@@ -42,7 +42,7 @@ public class EventFacadeImpl implements EventFacade{
         String email = (String) user.getAttributes().get("email");
         UserEntity userEntity = userService.findUserBySocialEmail(email);
 
-        return eventQueryService.getEventList(userEntity.getId());
+        return eventQueryService.getEventList(userEntity);
     }
 
     /**
@@ -57,7 +57,7 @@ public class EventFacadeImpl implements EventFacade{
         String email = (String) user.getAttributes().get("email");
         UserEntity userEntity = userService.findUserBySocialEmail(email);
 
-        return eventQueryService.getEventDetail(userEntity.getId(), eventId);
+        return eventQueryService.getEventDetail(userEntity, eventId);
     }
 
     /**

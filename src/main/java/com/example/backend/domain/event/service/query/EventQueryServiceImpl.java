@@ -6,6 +6,7 @@ import com.example.backend.domain.event.dto.EventResponseDto;
 import com.example.backend.domain.event.dto.EventWithMetadataDto;
 import com.example.backend.domain.event.entity.EventType;
 import com.example.backend.domain.event.repository.query.EventQueryRepository;
+import com.example.backend.domain.user.entity.UserEntity;
 import com.example.backend.global.error.BusinessException;
 import com.example.backend.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +31,13 @@ public class EventQueryServiceImpl implements EventQueryService{
 
     /**
      * 사용자의 진행중인 이벤트 리스트 조회
-     * @param userId : 사용자 ID
+     * @param userEntity : 사용자 정보
      * @return SearchList
      */
     @Override
-    public SearchList getEventList(Long userId) {
+    public SearchList getEventList(UserEntity userEntity) {
 
-        List<EventWithMetadataDto> eventData = eventQueryRepository.findByUserIdAndIsActive(userId, true);
+        List<EventWithMetadataDto> eventData = eventQueryRepository.findByUserIdAndIsActive(userEntity, true);
 
         return eventResponseConverter.toSearchListDto(eventData);
     }
@@ -44,14 +45,14 @@ public class EventQueryServiceImpl implements EventQueryService{
 
     /**
      * 이벤트 상세 정보 조회
-     * @param userId : 사용자 ID
+     * @param userEntity : 사용자 정보
      * @param eventId : 이벤트 ID
      * @return EventDetail
      */
     @Override
-    public EventDetail getEventDetail(Long userId, Long eventId) {
+    public EventDetail getEventDetail(UserEntity userEntity, Long eventId) {
 
-        EventWithMetadataDto eventData = eventQueryRepository.findByUserIdAndEventIdAndIsActive(userId, eventId, true);
+        EventWithMetadataDto eventData = eventQueryRepository.findByUserIdAndEventIdAndIsActive(userEntity, eventId, true);
 
         if(eventData.event().getEventType() == EventType.FORM){
             return eventResponseConverter.toSearchFormDto(eventData.event(), eventData.metadata());
