@@ -2,6 +2,7 @@ package com.example.backend.domain.event.controller;
 
 import com.example.backend.application.facade.EventFacade;
 import com.example.backend.domain.event.dto.EventDetail;
+import com.example.backend.domain.event.service.query.EventQueryService;
 import com.example.backend.global.dto.ApiResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import static com.example.backend.domain.event.dto.EventResponseDto.*;
 public class EventQueryController {
 
     private final EventFacade eventFacade;
+    private final EventQueryService eventQueryService;
 
     /**
      * 사용자의 진행중인 이벤트 리스트 조회
@@ -81,7 +83,7 @@ public class EventQueryController {
 
         log.info("[EVENT][CTRL][REQUEST] /events/{}/isActive GET start", id);
 
-        IsActive isActive = eventFacade.getEventIsActive(id);
+        IsActive isActive = eventQueryService.getEventIsActive(id);
 
         long end = System.currentTimeMillis();
         long elapsed = end - start;

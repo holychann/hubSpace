@@ -8,6 +8,5 @@ public interface EventFacade {
 
     EventResponseDto.SearchList getEventList(OAuth2User user);
     EventDetail getEventDetail(OAuth2User user, Long eventId);
-    EventResponseDto.IsActive getEventIsActive(Long eventId);
 
 }

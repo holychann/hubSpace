@@ -58,16 +58,4 @@ public class EventFacadeImpl implements EventFacade{
         return eventDetail;
     }
 
-    /**
-     * 이벤트 활성화 여부 확인
-     * @param eventId : 이벤트 ID
-     * @return Boolean
-     */
-    @Override
-    public IsActive getEventIsActive(Long eventId) {
-
-        IsActive isActive = eventQueryService.getEventIsActive(eventId);
-
-        return isActive;
-    }
 }
