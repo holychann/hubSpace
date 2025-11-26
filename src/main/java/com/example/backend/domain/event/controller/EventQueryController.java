@@ -2,7 +2,6 @@ package com.example.backend.domain.event.controller;
 
 import com.example.backend.application.facade.EventFacade;
 import com.example.backend.domain.event.dto.EventDetail;
-import com.example.backend.domain.event.dto.EventResponseDto;
 import com.example.backend.global.dto.ApiResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,7 @@ import static com.example.backend.domain.event.dto.EventResponseDto.*;
 @RequiredArgsConstructor
 @RequestMapping("/events")
 @Slf4j
-public class EventController {
+public class EventQueryController {
 
     private final EventFacade eventFacade;
 
@@ -92,5 +91,7 @@ public class EventController {
         return ResponseEntity.ok(ApiResponseDto.success(isActive));
 
     }
+
+    // TODO: 데이터 조회
 
 }
