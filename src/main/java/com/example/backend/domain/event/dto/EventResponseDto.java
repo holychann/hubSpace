@@ -15,6 +15,18 @@ import java.util.List;
 public class EventResponseDto {
 
     /**
+     * 활성화 여부
+     */
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class IsActive{
+        private Long eventId;
+        private Boolean isActive;
+    }
+
+    /**
      * 모든 이벤트 목록
      */
     @Getter

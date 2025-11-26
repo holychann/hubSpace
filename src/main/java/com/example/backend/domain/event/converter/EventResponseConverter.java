@@ -76,4 +76,11 @@ public class EventResponseConverter {
                 .displayColumn(eventMetadataEntity.getDisplayColumn())
                 .build();
     }
+
+    public static IsActive toIsActiveDto(Long eventId, Boolean isActive) {
+        return IsActive.builder()
+                .eventId(eventId)
+                .isActive(isActive)
+                .build();
+    }
 }

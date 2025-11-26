@@ -64,9 +64,9 @@ public class EventFacadeImpl implements EventFacade{
      * @return Boolean
      */
     @Override
-    public Boolean getEventIsActive(Long eventId) {
+    public IsActive getEventIsActive(Long eventId) {
 
-        Boolean isActive = eventQueryService.getEventIsActive(eventId);
+        IsActive isActive = eventQueryService.getEventIsActive(eventId);
 
         return isActive;
     }

@@ -30,16 +30,6 @@ public class ApiResponseDto<T> {
     }
 
     /**
-     * 성공 여부만 담은 응답 생성 메서드
-     * @return ApiResponseDto
-     */
-    public static ApiResponseDto<Void> success() {
-        return ApiResponseDto.<Void>builder()
-                .success(true)
-                .build();
-    }
-
-    /**
      * 실패 응답 생성 메서드
      * @param message 실패 메시지
      * @return ApiResponseDto

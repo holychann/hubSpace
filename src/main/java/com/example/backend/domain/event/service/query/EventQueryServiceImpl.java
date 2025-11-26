@@ -68,8 +68,10 @@ public class EventQueryServiceImpl implements EventQueryService{
      * @return Boolean
      */
     @Override
-    public Boolean getEventIsActive(Long eventId) {
+    public IsActive getEventIsActive(Long eventId) {
 
-        return eventQueryRepository.existsByEventId(eventId);
+        Boolean result = eventQueryRepository.existsByEventId(eventId);
+
+        return eventResponseConverter.toIsActiveDto(eventId, result);
     }
 }
