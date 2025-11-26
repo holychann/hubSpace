@@ -1,6 +1,5 @@
 package com.example.backend.domain.event.entity;
 
-import com.example.backend.global.helper.StringListConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
