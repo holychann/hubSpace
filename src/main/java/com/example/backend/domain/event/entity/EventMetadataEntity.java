@@ -57,4 +57,16 @@ public class EventMetadataEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public void updateSearchColumnsIds(List<String> searchColumnsIds) {
+        this.searchColumnsIds = searchColumnsIds;
+    }
+
+    public void updateFormId(String formId) {
+        this.formId = formId;
+    }
+
+    public void updateFormUrl(String formUrl) {
+        this.formUrl = formUrl;
+    }
+
 }

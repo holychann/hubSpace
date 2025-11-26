@@ -19,18 +19,18 @@ public class EventRequestDto {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class createFormEvent {
+    public static class CreateFormEvent {
         private String eventTitle;
         private List<String> searchColumns;
         private EventType eventType;
-        private LocalDateTime eventStartAt;
-        private LocalDateTime eventEndAt;
+        private LocalDateTime eventStartTime;
+        private LocalDateTime eventEndTime;
     }
 
     /**
      * CSV, TSC 등 파일 생성 요청 DTO
      */
-    public static class createFileEvent {
+    public static class CreateFileEvent {
         private Integer count;
         private String eventTitle;
         private List<String> searchColumns;

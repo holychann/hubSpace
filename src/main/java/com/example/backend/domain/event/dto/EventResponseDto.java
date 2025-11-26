@@ -80,5 +80,17 @@ public class EventResponseDto {
         private String displayColumn;
     }
 
+    /**
+     * Google Form 생성 요청 결과
+     */
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CreatedFormEvent {
+        private Long eventId;
+        private String formUrl;
+    }
+
     // TODO: 데이터들만 반환하는 DTO 추가
 }
