@@ -2,6 +2,7 @@ package com.example.backend.domain.event.converter;
 
 import com.example.backend.domain.event.dto.EventDetail;
 import com.example.backend.domain.event.dto.EventResponseDto;
+import com.example.backend.domain.event.dto.EventWithMetadataDto;
 import com.example.backend.domain.event.entity.EventEntity;
 import com.example.backend.domain.event.entity.EventMetadataEntity;
 import com.example.backend.domain.event.entity.EventType;
@@ -16,13 +17,29 @@ import static com.example.backend.domain.event.dto.EventResponseDto.*;
 public class EventResponseConverter {
 
     /**
-     * TODO: QueryDSL 구현 후 구현 예정
      * 모든 이벤트의 Entity -> DTO 변환 메서드
      * @return SearchList
      */
-    public static SearchList toSearchListDto(List<EventEntity> eventEntityList) {
+    public static SearchList toSearchListDto(List<EventWithMetadataDto> eventList) {
 
-        return null;
+        List<EventDetail> results = eventList.stream()
+                .map(dto -> {
+                    EventEntity event = dto.event();
+                    EventMetadataEntity metadata = dto.metadata();
+
+                    if (event.getEventType() == EventType.FORM) {
+                        return toSearchFormDto(event, metadata);
+                    } else {
+                        return toSearchFileDto(event, metadata);
+                    }
+                })
+                .toList();
+
+        return SearchList.builder()
+                .count(eventList.size())
+                .events(results)
+                .build();
+
     }
 
     /**

@@ -17,6 +17,10 @@ public class EventResponseDto {
     /**
      * 모든 이벤트 목록
      */
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class SearchList {
         Integer count;
         List<EventDetail> events;
