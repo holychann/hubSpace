@@ -7,5 +7,6 @@ import com.example.backend.domain.user.entity.UserEntity;
 import java.util.List;
 
 public interface EventQueryRepositoryDsl {
-    List<EventWithMetadataDto> findByUserIdAndIsActive(UserEntity userEntity, Boolean isActive);
+    List<EventWithMetadataDto> findByUserIdAndIsActive(Long userId, Boolean isActive);
+    EventWithMetadataDto findByUserIdAndEventIdAndIsActive(Long userId, Long eventId, Boolean isActive);
 }

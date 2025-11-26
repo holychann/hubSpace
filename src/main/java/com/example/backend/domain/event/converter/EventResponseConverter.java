@@ -6,6 +6,7 @@ import com.example.backend.domain.event.dto.EventWithMetadataDto;
 import com.example.backend.domain.event.entity.EventEntity;
 import com.example.backend.domain.event.entity.EventMetadataEntity;
 import com.example.backend.domain.event.entity.EventType;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import static com.example.backend.domain.event.dto.EventResponseDto.*;
 /**
  * 이벤트 Response 용 DTO 변환 클래스
  */
+@Component
 public class EventResponseConverter {
 
     /**
