@@ -1,11 +1,15 @@
 package com.example.backend.application.facade;
 
 import com.example.backend.domain.event.dto.EventDetail;
+import com.example.backend.domain.event.dto.EventRequestDto;
 import com.example.backend.domain.event.dto.EventResponseDto;
+import com.example.backend.domain.event.service.command.EventCommandService;
 import com.example.backend.domain.event.service.query.EventQueryService;
 import com.example.backend.domain.user.entity.UserEntity;
 import com.example.backend.domain.user.service.UserService;
 import com.example.backend.global.dto.ApiResponseDto;
+import com.example.backend.infra.google.drive.GoogleDriveService;
+import com.example.backend.infra.google.dto.GoogleFormCreateResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -23,6 +27,8 @@ public class EventFacadeImpl implements EventFacade{
 
     private final EventQueryService eventQueryService;
     private final UserService userService;
+    private final GoogleDriveService googleDriveService;
+    private final EventCommandService eventCommandService;
 
 
     /**
@@ -36,9 +42,7 @@ public class EventFacadeImpl implements EventFacade{
         String email = (String) user.getAttributes().get("email");
         UserEntity userEntity = userService.findUserBySocialEmail(email);
 
-        SearchList eventList = eventQueryService.getEventList(userEntity.getId());
-
-        return eventList;
+        return eventQueryService.getEventList(userEntity.getId());
     }
 
     /**
@@ -53,9 +57,27 @@ public class EventFacadeImpl implements EventFacade{
         String email = (String) user.getAttributes().get("email");
         UserEntity userEntity = userService.findUserBySocialEmail(email);
 
-        EventDetail eventDetail = eventQueryService.getEventDetail(userEntity.getId(), eventId);
-
-        return eventDetail;
+        return eventQueryService.getEventDetail(userEntity.getId(), eventId);
     }
 
+    /**
+     * Google Form 이벤트 생성
+     * @param user : 로그인한 사용자 정보
+     * @param eventRequestDto : Google Form 생성 요청 DTO
+     * @return CreatedFormEvent
+     */
+    @Override
+    public CreatedFormEvent createFormEvent(OAuth2User user, EventRequestDto.CreateFormEvent eventRequestDto) {
+
+        String email = (String) user.getAttributes().get("email");
+        UserEntity userEntity = userService.findUserBySocialEmail(email);
+
+        GoogleFormCreateResponseDto googleFormResponse = googleDriveService.createFormInDrive(
+                userEntity.getUsername(),
+                eventRequestDto.getEventTitle(),
+                eventRequestDto.getSearchColumns(),
+                userEntity.getGoogleRefreshToken());
+
+        return eventCommandService.createFormEvent(userEntity, eventRequestDto, googleFormResponse);
+    }
 }

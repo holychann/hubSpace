@@ -14,6 +14,5 @@ public interface EventCommandService {
     CreatedFormEvent createFormEvent(
             UserEntity userEntity,
             CreateFormEvent eventRequestDto,
-            GoogleFormCreateResponseDto googleFormCreateResponseDto,
-            GoogleFormQuestionsIdsResponseDto googleFormQuestionsIdsResponseDto);
+            GoogleFormCreateResponseDto googleFormCreateResponseDto);
 }

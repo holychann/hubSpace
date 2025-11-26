@@ -118,12 +118,11 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
             String formUrl = formdata.get(1);
             log.info("📋[GOOGLE][FORM][END] Google Form 파일 생성 완료 | formId: {}", formId);
 
-            if(searchColumns != null && searchColumns.size() > 0) {
-                addQuestionsToForm(formId, searchColumns, accessToken);
-            }
-            GoogleFormCreateResponseDto responseDto = GoogleFormCreateResponseDto.of(formId, formUrl);
+            // 질문 추가
+            GoogleFormQuestionsIdsResponseDto googleFormQuestionsIdsResponseDto = addQuestionsToForm(formId, searchColumns, accessToken);
 
-            return responseDto;
+            // 응답 목록 반환
+            return GoogleFormCreateResponseDto.of(formId, formUrl, googleFormQuestionsIdsResponseDto);
 
         } catch (Exception e) {
             log.error("구글 드라이브 작업 중 오류 발생", e);

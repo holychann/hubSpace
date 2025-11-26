@@ -31,8 +31,7 @@ public class EventCommandServiceImpl implements EventCommandService{
     @Override
     public EventResponseDto.CreatedFormEvent createFormEvent(
             UserEntity userEntity, EventRequestDto.CreateFormEvent eventRequestDto,
-            GoogleFormCreateResponseDto googleFormCreateResponseDto,
-            GoogleFormQuestionsIdsResponseDto googleFormQuestionsIdsResponseDto
+            GoogleFormCreateResponseDto googleFormCreateResponseDto
     ) {
 
         log.info("[EVENT][SERVICE][CREATE] 구글 폼 이벤트 저장 시작 | formId: {}", googleFormCreateResponseDto.getFormId());
@@ -41,8 +40,7 @@ public class EventCommandServiceImpl implements EventCommandService{
         EventMetadataEntity eventMetadataEntity = eventRequestConverter.formDtoToMetadataEntity(
                 eventRequestDto,
                 eventEntity,
-                googleFormCreateResponseDto,
-                googleFormQuestionsIdsResponseDto);
+                googleFormCreateResponseDto);
 
         EventEntity save = eventCommandRepository.save(eventEntity);
         eventMetadataCommandRepository.save(eventMetadataEntity);

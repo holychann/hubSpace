@@ -38,11 +38,10 @@ public class EventRequestConverter {
     public static EventMetadataEntity formDtoToMetadataEntity(
             EventRequestDto.CreateFormEvent dto,
             EventEntity eventEntity,
-            GoogleFormCreateResponseDto googleFormCreateResponseDto,
-            GoogleFormQuestionsIdsResponseDto googleFormQuestionsIdsResponseDto
+            GoogleFormCreateResponseDto googleFormCreateResponseDto
     ) {
         List<String> questionIds = dto.getSearchColumns().stream()
-                .map(column -> googleFormQuestionsIdsResponseDto.getQuestionsIds().get(column))
+                .map(column -> googleFormCreateResponseDto.getSearchColumnsIds().get(column))
                 .toList();
 
         return EventMetadataEntity.builder()
