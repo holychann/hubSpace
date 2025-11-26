@@ -1,4 +1,4 @@
-package com.example.backend.domain.event.repository;
+package com.example.backend.domain.event.repository.command;
 
 import com.example.backend.domain.event.entity.EventEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

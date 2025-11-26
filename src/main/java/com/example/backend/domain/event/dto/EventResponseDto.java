@@ -63,4 +63,6 @@ public class EventResponseDto {
         // CSV형 이벤트의 멤버
         private String displayColumn;
     }
+
+    // TODO: 데이터들만 반환하는 DTO 추가
 }
