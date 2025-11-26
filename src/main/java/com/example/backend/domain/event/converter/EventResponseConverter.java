@@ -6,6 +6,7 @@ import com.example.backend.domain.event.dto.EventWithMetadataDto;
 import com.example.backend.domain.event.entity.EventEntity;
 import com.example.backend.domain.event.entity.EventMetadataEntity;
 import com.example.backend.domain.event.entity.EventType;
+import com.example.backend.infra.google.dto.GoogleFormCreateResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -77,10 +78,29 @@ public class EventResponseConverter {
                 .build();
     }
 
+    /**
+     * 활성화 여부 DTO
+     * @param eventId : 이벤트 ID
+     * @param isActive : 활성화 여부
+     * @return IsActive
+     */
     public static IsActive toIsActiveDto(Long eventId, Boolean isActive) {
         return IsActive.builder()
                 .eventId(eventId)
                 .isActive(isActive)
+                .build();
+    }
+
+    /**
+     * 생성된 Google Form 이벤트 DTO
+     * @param eventEntity : EventEntity
+     * @param googleFormCreateResponseDto : Google Form 생성 결과 DTO
+     * @return CreatedFormEvent
+     */
+    public static CreatedFormEvent toCreatedFormEventDto(EventEntity eventEntity, GoogleFormCreateResponseDto googleFormCreateResponseDto) {
+        return CreatedFormEvent.builder()
+                .eventId(eventEntity.getId())
+                .formUrl(googleFormCreateResponseDto.getFormUrl())
                 .build();
     }
 }

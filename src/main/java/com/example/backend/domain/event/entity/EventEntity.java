@@ -27,7 +27,7 @@ public class EventEntity {
     
     @JoinColumn(name = "user_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity userId;
+    private UserEntity user;
 
     @Column(name = "event_title", nullable = false)
     private String eventTitle;
