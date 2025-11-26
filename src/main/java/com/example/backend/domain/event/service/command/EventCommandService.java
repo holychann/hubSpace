@@ -11,7 +11,7 @@ import static com.example.backend.domain.event.dto.EventResponseDto.*;
 
 public interface EventCommandService {
 
-    CreatedFormEvent createEvent(
+    CreatedFormEvent createFormEvent(
             UserEntity userEntity,
             CreateFormEvent eventRequestDto,
             GoogleFormCreateResponseDto googleFormCreateResponseDto,

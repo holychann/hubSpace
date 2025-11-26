@@ -29,7 +29,7 @@ public class EventCommandServiceImpl implements EventCommandService{
     private final EventResponseConverter eventResponseConverter;
 
     @Override
-    public EventResponseDto.CreatedFormEvent createEvent(
+    public EventResponseDto.CreatedFormEvent createFormEvent(
             UserEntity userEntity, EventRequestDto.CreateFormEvent eventRequestDto,
             GoogleFormCreateResponseDto googleFormCreateResponseDto,
             GoogleFormQuestionsIdsResponseDto googleFormQuestionsIdsResponseDto
