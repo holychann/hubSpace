@@ -33,44 +33,41 @@ public class EventFacadeImpl implements EventFacade{
 
     /**
      * 이벤트 리스트 조회
-     * @param user : 로그인한 사용자 정보
+     * @param username : 사용자 username
      * @return SearchList
      */
     @Override
-    public SearchList getEventList(OAuth2User user) {
+    public SearchList getEventList(String username) {
 
-        String email = (String) user.getAttributes().get("email");
-        UserEntity userEntity = userService.findUserBySocialEmail(email);
+        UserEntity userEntity = userService.findUserByUsername(username);
 
         return eventQueryService.getEventList(userEntity);
     }
 
     /**
      * 이벤트 상세 정보 조회
-     * @param user : 로그인한 사용자 정보
+     * @param username : 사용자 username
      * @param eventId : 이벤트 ID
      * @return EventDetail
      */
     @Override
-    public EventDetail getEventDetail(OAuth2User user, Long eventId) {
+    public EventDetail getEventDetail(String username, Long eventId) {
 
-        String email = (String) user.getAttributes().get("email");
-        UserEntity userEntity = userService.findUserBySocialEmail(email);
+        UserEntity userEntity = userService.findUserByUsername(username);
 
         return eventQueryService.getEventDetail(userEntity, eventId);
     }
 
     /**
      * Google Form 이벤트 생성
-     * @param user : 로그인한 사용자 정보
+     * @param username : 사용자 username
      * @param eventRequestDto : Google Form 생성 요청 DTO
      * @return CreatedFormEvent
      */
     @Override
-    public CreatedFormEvent createFormEvent(OAuth2User user, EventRequestDto.CreateFormEvent eventRequestDto) {
+    public CreatedFormEvent createFormEvent(String username, EventRequestDto.CreateFormEvent eventRequestDto) {
 
-        String email = (String) user.getAttributes().get("email");
-        UserEntity userEntity = userService.findUserBySocialEmail(email);
+        UserEntity userEntity = userService.findUserByUsername(username);
 
         GoogleFormCreateResponseDto googleFormResponse = googleDriveService.createFormInDrive(
                 userEntity.getUsername(),

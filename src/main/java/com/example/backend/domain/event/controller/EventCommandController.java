@@ -11,9 +11,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/events")
+@RestController
+@RequestMapping("/events")
 @RequiredArgsConstructor
 @Slf4j
 public class EventCommandController {
@@ -22,14 +24,14 @@ public class EventCommandController {
 
     @PostMapping("/form")
     public ResponseEntity<ApiResponseDto> createFormEvent(
-            @AuthenticationPrincipal OAuth2User user,
+            @AuthenticationPrincipal String username,
             @RequestBody EventRequestDto.CreateFormEvent eventRequestDto
     ) {
-        log.info("[EVENT][CTRL][REQUEST] /events/form POST start | userEmail: {}", user.getAttributes().get("email"));
+        log.info("[EVENT][CTRL][REQUEST] /events/form POST start | username: {}", username);
 
         long start = System.currentTimeMillis();
 
-        EventResponseDto.CreatedFormEvent formInfo = eventFacade.createFormEvent(user, eventRequestDto);
+        EventResponseDto.CreatedFormEvent formInfo = eventFacade.createFormEvent(username, eventRequestDto);
 
         long end = System.currentTimeMillis();
         long elapsed = end - start;

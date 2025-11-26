@@ -27,17 +27,17 @@ public class EventQueryController {
 
     /**
      * 사용자의 진행중인 이벤트 리스트 조회
-     * @param user : 로그인한 사용자 정보
+     * @param username : 로그인한 사용자 정보
      * @return SearchList
      */
     @GetMapping("")
     public ResponseEntity<ApiResponseDto<SearchList>> searchLish(
-            @AuthenticationPrincipal OAuth2User user
+            @AuthenticationPrincipal String username
     ){
         long start = System.currentTimeMillis();
-        log.info("[EVENT][CTRL][REQUEST] /events GET start | userEmail: {}", user.getAttributes().get("email"));
+        log.info("[EVENT][CTRL][REQUEST] /events GET start | username: {}", username);
 
-        SearchList eventList = eventFacade.getEventList(user);
+        SearchList eventList = eventFacade.getEventList(username);
 
         long end = System.currentTimeMillis();
         long elapsed = end - start;
@@ -50,18 +50,18 @@ public class EventQueryController {
     /**
      * 이벤트 상세 정보 조회
      * @param id : 이벤트 ID
-     * @param user : 로그인한 사용자 정보
+     * @param username : 로그인한 사용자 정보
      * @return EventDetail
      */
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseDto<EventDetail>> searchEvent(
             @PathVariable("id") Long id,
-            @AuthenticationPrincipal OAuth2User user
+            @AuthenticationPrincipal String username
     ){
         long start = System.currentTimeMillis();
-        log.info("[EVENT][CTRL][REQUEST] /events/{} GET start | userEmail: {}", id, user.getAttributes().get("email"));
+        log.info("[EVENT][CTRL][REQUEST] /events/{} GET start | username: {}", id, username);
 
-        EventDetail eventDetail = eventFacade.getEventDetail(user, id);
+        EventDetail eventDetail = eventFacade.getEventDetail(username, id);
 
         long end = System.currentTimeMillis();
         long elapsed = end - start;

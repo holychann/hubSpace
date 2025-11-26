@@ -1,10 +1,8 @@
 package com.example.backend.domain.event.dto;
 
 import com.example.backend.domain.event.entity.EventType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,7 +21,9 @@ public class EventRequestDto {
         private String eventTitle;
         private List<String> searchColumns;
         private EventType eventType;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss") // 명시적 포맷 지정
         private LocalDateTime eventStartTime;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss") // 명시적 포맷 지정
         private LocalDateTime eventEndTime;
     }
 

@@ -7,8 +7,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public interface EventFacade {
 
-    EventResponseDto.SearchList getEventList(OAuth2User user);
-    EventDetail getEventDetail(OAuth2User user, Long eventId);
-    EventResponseDto.CreatedFormEvent createFormEvent(OAuth2User user, EventRequestDto.CreateFormEvent eventRequestDto);
+    EventResponseDto.SearchList getEventList(String username);
+    EventDetail getEventDetail(String username, Long eventId);
+    EventResponseDto.CreatedFormEvent createFormEvent(String username, EventRequestDto.CreateFormEvent eventRequestDto);
 
 }

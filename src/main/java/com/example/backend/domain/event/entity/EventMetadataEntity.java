@@ -1,13 +1,15 @@
 package com.example.backend.domain.event.entity;
 
-import com.example.backend.global.helper.StringListJsonConverter;
+import com.example.backend.global.helper.StringListConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,11 +35,11 @@ public class EventMetadataEntity {
     private Long count;
 
     @Column(name = "search_columns", columnDefinition = "jsonb")
-    @Convert(converter = StringListJsonConverter.class)
+    @JdbcTypeCode(SqlTypes.JSON)
     private List<String> searchColumns = new ArrayList<>();
 
     @Column(name = "search_columns_ids", columnDefinition = "jsonb")
-    @Convert(converter = StringListJsonConverter.class)
+    @JdbcTypeCode(SqlTypes.JSON)
     private List<String> searchColumnsIds = new ArrayList<>();
 
     @Column(name = "display_column")
