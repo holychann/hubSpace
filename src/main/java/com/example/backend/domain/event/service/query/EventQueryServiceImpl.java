@@ -17,6 +17,9 @@ import java.util.List;
 
 import static com.example.backend.domain.event.dto.EventResponseDto.*;
 
+/**
+ * 이벤트 Query Service 구현 클래스
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
