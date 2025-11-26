@@ -23,8 +23,8 @@ public class EventEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "event_name", nullable = false)
-    private String eventName;
+    @Column(name = "event_title", nullable = false)
+    private String eventTitle;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "event_type", nullable = false)

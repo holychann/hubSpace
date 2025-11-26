@@ -98,22 +98,22 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
     /**
      * Google Form 파일 생성
      * @param username 사용자 이름(예시: GOOGLE_1235235131)
-     * @param formName 파일명
+     * @param formTitle 파일명
      * @param searchColumns 검색할 컬럼명 목록
      * @param refreshToken Refresh Token
      * @return Google Form 파일 생성 결과(url, id)
      */
     @Override
-    public GoogleFormCreateResponseDto createFormInDrive(String username, String formName, List<String> searchColumns, String refreshToken) {
+    public GoogleFormCreateResponseDto createFormInDrive(String username, String formTitle, List<String> searchColumns, String refreshToken) {
         try {
 
-            log.info("📋[GOOGLE][FORM][START] Google Form 파일 생성 시작 | username: {}, formName: {}", username, formName);
+            log.info("📋[GOOGLE][FORM][START] Google Form 파일 생성 시작 | username: {}, formName: {}", username, formTitle);
             String accessToken = getValidAccessToken(username);
 
             Drive driveService = createDriveServiceInstance(accessToken);
 
             // List[0]: 파일 ID, List[1]: 파일 URL
-            List<String> formdata = createGoogleFormFile(driveService, formName);
+            List<String> formdata = createGoogleFormFile(driveService, formTitle);
             String formId = formdata.get(0);
             String formUrl = formdata.get(1);
             log.info("📋[GOOGLE][FORM][END] Google Form 파일 생성 완료 | formId: {}", formId);
@@ -151,12 +151,12 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
     /**
      * Google Form 파일 생성
      * @param drive Drive Service 인스턴스
-     * @param fileName 파일명
+     * @param formTitle 파일명
      * @return List[파일 ID, 파일 URL]
      */
-    private List<String> createGoogleFormFile(Drive drive, String fileName) throws Exception {
+    private List<String> createGoogleFormFile(Drive drive, String formTitle) throws Exception {
         File fileMetadata = new File();
-        fileMetadata.setName(fileName);
+        fileMetadata.setName(formTitle);
         fileMetadata.setMimeType("application/vnd.google-apps.form");
 
         File file = drive.files().create(fileMetadata)
