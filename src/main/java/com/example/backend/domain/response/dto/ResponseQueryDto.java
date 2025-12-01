@@ -13,5 +13,5 @@ import java.util.Map;
 @NoArgsConstructor
 public class ResponseQueryDto {
     private Long eventId;
-    private Map<String, String> responses;
+    private Map<String, String> answers;
 }
