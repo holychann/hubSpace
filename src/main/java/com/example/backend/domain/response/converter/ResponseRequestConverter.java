@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 @Component
-public class ResponseCommandConverter {
+public class ResponseRequestConverter {
 
     public static ResponseEntity googleFormResponseToEntity(GoogleFormResponseDto response, Long eventId) {
         return ResponseEntity.builder()
