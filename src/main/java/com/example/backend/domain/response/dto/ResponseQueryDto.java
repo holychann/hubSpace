@@ -1,5 +1,6 @@
 package com.example.backend.domain.response.dto;
 
+import com.example.backend.domain.response.entity.ResponseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,4 +18,11 @@ import java.util.Map;
 public class ResponseQueryDto {
     private Long eventId;
     private Map<String, String> answers;
+
+    public static ResponseQueryDto of(ResponseEntity entity) {
+        return ResponseQueryDto.builder()
+                .eventId(entity.getEventId())
+                .answers(entity.getAnswers())
+                .build();
+    }
 }
