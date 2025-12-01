@@ -32,6 +32,13 @@ spring:
 # ?access_type=offline&prompt=consent 부분 확인
 # access_type=offline 는 구글 Refresh Token 을 사용하겠다는 의미. 최초 1회만 발급
 # prompt=consent 는 계속 물어보고 발급(개발용)
+aws:
+  region: {{AWS_REGION}}
+  dynamodb:
+    table-name: {{AWS_TABLE_NAME}}
+  credentials:
+    access-key: {{AWS_ACCESS_KEY}}
+    secret-key: {{AWS_SECRET_KEY}}
 
 jwt:
   secret: {{JWT_SECRET}}
