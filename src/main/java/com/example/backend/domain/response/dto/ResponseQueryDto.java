@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
+/**
+ * 데이터 조회 요청 DTO 겸 데이터 조회 응답 반환 DTO
+ */
 @Builder
 @Getter
 @AllArgsConstructor
