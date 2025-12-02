@@ -3,7 +3,7 @@ package com.example.backend.application.facade;
 import com.example.backend.domain.event.dto.EventResponseDto;
 import com.example.backend.domain.event.service.query.EventQueryService;
 import com.example.backend.domain.response.dto.ResponseQueryDto;
-import com.example.backend.domain.response.service.ResponseQueryService;
+import com.example.backend.domain.response.service.query.ResponseQueryService;
 import com.example.backend.global.error.BusinessException;
 import com.example.backend.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;

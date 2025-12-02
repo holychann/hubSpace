@@ -58,4 +58,7 @@ public class EventEntity {
 
     @Column(name = "last_polling_at")
     private LocalDateTime lastPollingAt;
+
+    @Column(name = "last_response_time")
+    private LocalDateTime lastResponseTime;
 }
