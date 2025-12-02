@@ -106,6 +106,9 @@ public class EventCommandServiceImpl implements EventCommandService{
     @Override
     public void updateCount(EventEntity eventEntity, Long count) {
         EventMetadataEntity meta = eventMetadataQueryRepository.findByEventId(eventEntity.getId());
-        meta.updateCount(meta.getCount() + count);
+        long delta = count - meta.getCount();
+        if (delta > 0) {
+            meta.updateCount(meta.getCount() + delta);
+        }
     }
 }
