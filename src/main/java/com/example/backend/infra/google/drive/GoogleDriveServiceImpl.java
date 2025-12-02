@@ -254,7 +254,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
      * @param searchColumnIds 검색용 컬럼 ID 목록
      * @return 응답 목록 List
      */
-    public List<GoogleFormResponseDto> getFormResponses(String formId, String accessToken, List<String> searchColumnIds) throws IOException {
+    public List<GoogleFormResponseDto> getFormResponses(String formId, String accessToken, List<String> searchColumnIds, LocalDateTime lastResponseTime) throws IOException {
 
         try {
             Forms formsService = createFormsService(accessToken);
@@ -274,6 +274,13 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
             }
 
             for (FormResponse raw : responses) {
+                LocalDateTime responseTime = LocalDateTime.parse(raw.getCreateTime());
+
+                // 최근 응답 이후의 응답은 무시
+                if(lastResponseTime != null && responseTime.isBefore(lastResponseTime)) {
+                    continue;
+                }
+
                 Map<String, String> parsedAnswers = new HashMap<>();
 
                 // 답변이 있는 경우에만 처리

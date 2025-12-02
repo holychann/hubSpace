@@ -9,6 +9,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -68,5 +69,23 @@ public class EventQueryRepositoryDslImpl implements EventQueryRepositoryDsl {
                 .join(metadata.event, event)
                 .where(event.id.eq(eventId).and(event.isActive.eq(isActive)))
                 .fetchOne();
+    }
+
+    @Override
+    public List<EventWithMetadataDto> findByNextPollingAtBefore(LocalDateTime threshold) {
+
+        QEventMetadataEntity metadata = QEventMetadataEntity.eventMetadataEntity;
+        QEventEntity event = QEventEntity.eventEntity;
+
+        return queryFactory
+                .select(Projections.constructor(
+                        EventWithMetadataDto.class,
+                        event,
+                        metadata
+                ))
+                .from(metadata)
+                .join(metadata.event, event)
+                .where(event.nextPollingAt.before(threshold).and(event.isActive.eq(true)))
+                .fetch();
     }
 }

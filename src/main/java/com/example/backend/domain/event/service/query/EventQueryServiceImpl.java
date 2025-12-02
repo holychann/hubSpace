@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.example.backend.domain.event.dto.EventResponseDto.*;
@@ -93,5 +94,15 @@ public class EventQueryServiceImpl implements EventQueryService{
         }
 
         return eventResponseConverter.toSearchColumnsAndEventIdDto(eventWithMetadata);
+    }
+
+    /**
+     * 다음 검색 이벤트들 조회
+     * @param threshold
+     * @return
+     */
+    @Override
+    public List<EventWithMetadataDto> getNextPollingEvents(LocalDateTime threshold) {
+        return eventQueryRepository.findByNextPollingAtBefore(threshold);
     }
 }

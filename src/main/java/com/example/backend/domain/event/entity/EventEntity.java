@@ -7,9 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -62,11 +60,15 @@ public class EventEntity {
     @Column(name = "last_response_time")
     private LocalDateTime lastResponseTime;
 
-    public void setLastResponseTime(LocalDateTime lastResponseTime){
+    public void updateLastResponseTime(LocalDateTime lastResponseTime){
         this.lastResponseTime = lastResponseTime;
     }
 
-    public void setNextPollingAt(LocalDateTime nextPollingAt){
+    public void updateNextPollingAt(LocalDateTime nextPollingAt){
         this.nextPollingAt = nextPollingAt;
+    }
+
+    public void updateIsActive(Boolean isActive){
+        this.isActive = isActive;
     }
 }

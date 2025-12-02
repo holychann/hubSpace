@@ -55,7 +55,7 @@ public class EventCommandServiceImpl implements EventCommandService{
      */
     @Override
     public void updateLastResponseTime(EventEntity eventEntity, LocalDateTime lastResponseTime) {
-        eventEntity.setLastResponseTime(lastResponseTime);
+        eventEntity.updateLastResponseTime(lastResponseTime);
         eventCommandRepository.save(eventEntity);
     }
 
@@ -66,7 +66,18 @@ public class EventCommandServiceImpl implements EventCommandService{
      */
     @Override
     public void updateNextPollingAt(EventEntity eventEntity, LocalDateTime nextPollingAt) {
-        eventEntity.setNextPollingAt(nextPollingAt);
+        eventEntity.updateNextPollingAt(nextPollingAt);
+        eventCommandRepository.save(eventEntity);
+    }
+
+    /**
+     * 이벤트 활성화 상태 업데이트
+     * @param eventEntity : 이벤트 정보
+     * @param isActive : 활성화 여부
+     */
+    @Override
+    public void updateEventStatus(EventEntity eventEntity, Boolean isActive) {
+        eventEntity.updateIsActive(isActive);
         eventCommandRepository.save(eventEntity);
     }
 }
