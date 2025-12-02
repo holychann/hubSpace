@@ -33,7 +33,7 @@ public class Poller {
     @Scheduled(fixedRate = 60_000) // 매 1분
     public void scanAndPoll() throws IOException {
 
-        log.info("🤖[POLLING] 검색 시작");
+        log.info("🤖[POLLING] 검색 시도");
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime threshold = now.plusMinutes(2);

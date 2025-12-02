@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class EventEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     
     @JoinColumn(name = "user_id", nullable = false)

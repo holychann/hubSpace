@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class EventRequestConverter {
@@ -20,8 +21,9 @@ public class EventRequestConverter {
      * @param dto : CreateFormEvent DTO
      * @return EventEntity
      */
-    public static EventEntity formDtoToEntity(EventRequestDto.CreateFormEvent dto, UserEntity userEntity) {
+    public static EventEntity formDtoToEntity(EventRequestDto.CreateFormEvent dto, UserEntity userEntity, Long id) {
         return EventEntity.builder()
+                .id(id)
                 .eventTitle(dto.getEventTitle())
                 .user(userEntity)
                 .eventType(dto.getEventType())
