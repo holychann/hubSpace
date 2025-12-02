@@ -23,6 +23,7 @@ import com.google.api.services.forms.v1.model.*;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -274,10 +275,12 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
             }
 
             for (FormResponse raw : responses) {
-                LocalDateTime responseTime = LocalDateTime.parse(raw.getCreateTime());
+                LocalDateTime responseTime = OffsetDateTime.parse(raw.getCreateTime()).toLocalDateTime();
+
 
                 // 최근 응답 이후의 응답은 무시
-                if(lastResponseTime != null && responseTime.isBefore(lastResponseTime)) {
+                if(responseTime.isBefore(lastResponseTime)) {
+                    log.info("📭 최근 응답 이후의 응답은 무시합니다. | formId: {}, responseTime: {}", formId, responseTime);
                     continue;
                 }
 

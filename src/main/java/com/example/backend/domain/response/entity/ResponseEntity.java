@@ -8,9 +8,12 @@ import lombok.NoArgsConstructor;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,7 +71,7 @@ public class ResponseEntity {
      * @param eventId : 이벤트 ID
      * @return ResponseEntity
      */
-    public ResponseEntity fromGoogleForm(GoogleFormResponseDto response, Long eventId) {
+    public static ResponseEntity fromGoogleForm(GoogleFormResponseDto response, Long eventId) {
         return ResponseEntity.builder()
                 .eventId(eventId)
                 .answers(response.getAnswers())
@@ -76,4 +79,33 @@ public class ResponseEntity {
                 .ttl(Instant.now().plus(20, ChronoUnit.DAYS).getEpochSecond())
                 .build();
     }
+
+    public static List<ResponseEntity> fromGoogleFormList(List<GoogleFormResponseDto> responses, Long eventId) {
+        return responses
+                .stream()
+                .map(response -> ResponseEntity.fromGoogleForm(response, eventId))
+                .toList();
+    }
+
+    public Map<String, AttributeValue> toAttributeValueMap() {
+        Map<String, AttributeValue> item = new HashMap<>();
+
+        // 숫자 → n()
+        item.put("eventId", AttributeValue.builder().n(String.valueOf(eventId)).build());
+        // 문자열 → s()
+        item.put("createTime", AttributeValue.builder().s(createTime).build());
+        // Map<String, String> → m() + AttributeValue 변환
+        Map<String, AttributeValue> answersAttr = new HashMap<>();
+        answers.forEach((key, value) -> {
+            answersAttr.put(key, AttributeValue.builder().s(value).build());
+        });
+        item.put("answers", AttributeValue.builder().m(answersAttr).build());
+        // TTL 필드 → n()
+        item.put("ttl", AttributeValue.builder().n(String.valueOf(ttl)).build());
+
+        return item;
+    }
+
+
+
 }

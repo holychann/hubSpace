@@ -1,11 +1,8 @@
 package com.example.backend.domain.event.service.command;
 
-import com.example.backend.domain.event.dto.EventRequestDto;
-import com.example.backend.domain.event.dto.EventResponseDto;
 import com.example.backend.domain.event.entity.EventEntity;
 import com.example.backend.domain.user.entity.UserEntity;
 import com.example.backend.infra.google.dto.GoogleFormCreateResponseDto;
-import com.example.backend.infra.google.dto.GoogleFormQuestionsIdsResponseDto;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +17,7 @@ public interface EventCommandService {
             GoogleFormCreateResponseDto googleFormCreateResponseDto);
 
     void updateLastResponseTime(EventEntity eventEntity, LocalDateTime lastResponseTime);
-    void updateNextPollingAt(EventEntity eventEntity, LocalDateTime nextPollingAt);
+    void updateNextPollingAtAndLastResponseTime(EventEntity eventEntity, LocalDateTime nextPollingAt, LocalDateTime lastResponseTime);
     void updateEventStatus(EventEntity eventEntity, Boolean isActive);
+    void updateNextPollingAt(EventEntity eventEntity, LocalDateTime nextPollingAt);
 }

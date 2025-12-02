@@ -27,7 +27,7 @@ public class EventRequestConverter {
                 .eventType(dto.getEventType())
                 .eventStartTime(dto.getEventStartTime())
                 .eventEndTime(dto.getEventEndTime())
-                .lastResponseTime(LocalDateTime.now())
+                .lastResponseTime(LocalDateTime.now().minusDays(1))
                 .nextPollingAt(LocalDateTime.now().plusMinutes(1))
                 .isActive(true)
                 .build();
