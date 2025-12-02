@@ -1,0 +1,22 @@
+package com.example.backend.application.facade.helper;
+
+import com.example.backend.domain.event.dto.EventResponseDto;
+import com.example.backend.domain.response.dto.ResponseQueryDto;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class ResponseHelper {
+
+    public static boolean extracted(ResponseQueryDto queryDto, EventResponseDto.SearchColumnsAndEventId eventColumns) {
+        List<String> requiredColumns = eventColumns.getSearchColumns();
+        Set<String> required = new HashSet<>(requiredColumns);
+
+        Map<String, String> provided = queryDto.getAnswers();
+        Set<String> providedKeys = provided.keySet();
+
+        return required.equals(providedKeys);
+    }
+}

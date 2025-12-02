@@ -9,4 +9,5 @@ public interface EventQueryService {
     SearchList getEventList(UserEntity userEntity);
     EventDetail getEventDetail(UserEntity userEntity, Long eventId);
     IsActive getEventIsActive(Long eventId);
+    SearchColumnsAndEventId getEventColumns(Long eventId);
 }

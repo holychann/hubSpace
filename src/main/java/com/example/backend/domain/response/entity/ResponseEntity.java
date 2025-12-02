@@ -2,7 +2,9 @@ package com.example.backend.domain.response.entity;
 
 
 import com.example.backend.infra.google.dto.GoogleFormResponseDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
@@ -15,6 +17,8 @@ import java.util.Map;
  * DynamoDB Enhanced Client 에서 Lombok 이 인식되지 않음으로 Getter 와 Setter 를 수동으로 추가함.
  */
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @DynamoDbBean
 public class ResponseEntity {
     private Long eventId;
@@ -23,7 +27,7 @@ public class ResponseEntity {
     private Long ttl;
 
     @DynamoDbPartitionKey
-    @DynamoDbAttribute("user_id")
+    @DynamoDbAttribute("eventId")
     public Long getEventId() {
         return eventId;
     }

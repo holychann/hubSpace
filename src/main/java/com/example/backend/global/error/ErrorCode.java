@@ -17,7 +17,11 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "COMMON-500", "서버 내부 오류입니다."),
 
     /* 데이터 */
-    DATA_NOT_FOUND(HttpStatus.NOT_FOUND, "DATA-404", "조회 결과가 없습니다.");
+    DATA_NOT_FOUND(HttpStatus.NOT_FOUND, "DATA-404", "조회 결과가 없습니다."),
+    DATA_INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "DATA-400", "잘못된 입력 값입니다."),
+
+    /* 이벤트 */
+    EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "EVENT-404", "이벤트가 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;  // HTTP 상태코드
     private final String code;  // 에러 코드

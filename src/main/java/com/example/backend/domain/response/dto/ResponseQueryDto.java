@@ -25,4 +25,11 @@ public class ResponseQueryDto {
                 .answers(entity.getAnswers())
                 .build();
     }
+
+    public static ResponseQueryDto of(Long eventId, Map<String, String> answers) {
+        return ResponseQueryDto.builder()
+                .eventId(eventId)
+                .answers(answers)
+                .build();
+    }
 }

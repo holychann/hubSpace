@@ -103,4 +103,11 @@ public class EventResponseConverter {
                 .formUrl(googleFormCreateResponseDto.getFormUrl())
                 .build();
     }
+
+    public static SearchColumnsAndEventId toSearchColumnsAndEventIdDto(EventWithMetadataDto eventWithMetadataDto) {
+        return SearchColumnsAndEventId.builder()
+                .eventId(eventWithMetadataDto.event().getId())
+                .searchColumns(eventWithMetadataDto.metadata().getSearchColumns())
+                .build();
+    }
 }

@@ -92,5 +92,16 @@ public class EventResponseDto {
         private String formUrl;
     }
 
-    // TODO: 데이터들만 반환하는 DTO 추가
+
+    /**
+     * 이벤트 ID와 검색 컬럼 조회
+     */
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SearchColumnsAndEventId{
+        private Long eventId;
+        private List<String> searchColumns;
+    }
 }

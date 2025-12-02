@@ -4,6 +4,7 @@ import com.example.backend.domain.event.converter.EventResponseConverter;
 import com.example.backend.domain.event.dto.EventDetail;
 import com.example.backend.domain.event.dto.EventResponseDto;
 import com.example.backend.domain.event.dto.EventWithMetadataDto;
+import com.example.backend.domain.event.entity.EventEntity;
 import com.example.backend.domain.event.entity.EventType;
 import com.example.backend.domain.event.repository.query.EventQueryRepository;
 import com.example.backend.domain.user.entity.UserEntity;
@@ -74,5 +75,23 @@ public class EventQueryServiceImpl implements EventQueryService{
         Boolean result = eventQueryRepository.existsById(eventId);
 
         return eventResponseConverter.toIsActiveDto(eventId, result);
+    }
+
+    /**
+     * 이벤트 검색 컬럼 조회
+     * @param eventId : 이벤트 ID
+     * @return SearchColumnsAndEventId
+     */
+    @Override
+    public SearchColumnsAndEventId getEventColumns(Long eventId) {
+
+        EventWithMetadataDto eventWithMetadata = eventQueryRepository.findByEventIdAndIsActive(eventId, true);
+
+        // 이벤트가 존재하지 않으면 예외 발생
+        if(eventWithMetadata == null) {
+            throw new BusinessException(ErrorCode.EVENT_NOT_FOUND);
+        }
+
+        return eventResponseConverter.toSearchColumnsAndEventIdDto(eventWithMetadata);
     }
 }

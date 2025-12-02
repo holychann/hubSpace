@@ -36,7 +36,7 @@ public class EventCommandController {
         long end = System.currentTimeMillis();
         long elapsed = end - start;
 
-        log.info("[EVENT][CTRL][RESPONSE] /events/form POST end | elapsed: {}", elapsed);
+        log.info("[EVENT][CTRL][RESPONSE] /events/form POST end | 걸린시간: {}", elapsed);
 
         return ResponseEntity.ok(ApiResponseDto.success(formInfo));
     }

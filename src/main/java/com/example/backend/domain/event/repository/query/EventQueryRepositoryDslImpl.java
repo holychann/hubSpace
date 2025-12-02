@@ -51,4 +51,22 @@ public class EventQueryRepositoryDslImpl implements EventQueryRepositoryDsl {
                 .where(event.user.eq(userEntity).and(event.id.eq(eventId).and(event.isActive.eq(isActive))))
                 .fetchOne();
     }
+
+    @Override
+    public EventWithMetadataDto findByEventIdAndIsActive(Long eventId, Boolean isActive) {
+
+        QEventMetadataEntity metadata = QEventMetadataEntity.eventMetadataEntity;
+        QEventEntity event = QEventEntity.eventEntity;
+
+        return queryFactory
+                .select(Projections.constructor(
+                        EventWithMetadataDto.class,
+                        event,
+                        metadata
+                ))
+                .from(metadata)
+                .join(metadata.event, event)
+                .where(event.id.eq(eventId).and(event.isActive.eq(isActive)))
+                .fetchOne();
+    }
 }
