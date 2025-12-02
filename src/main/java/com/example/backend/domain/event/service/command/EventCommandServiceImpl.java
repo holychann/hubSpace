@@ -8,15 +8,13 @@ import com.example.backend.domain.event.entity.EventEntity;
 import com.example.backend.domain.event.entity.EventMetadataEntity;
 import com.example.backend.domain.event.repository.command.EventCommandRepository;
 import com.example.backend.domain.event.repository.command.EventMetadataCommandRepository;
-import com.example.backend.domain.event.repository.query.EventQueryRepository;
 import com.example.backend.domain.user.entity.UserEntity;
 import com.example.backend.infra.google.dto.GoogleFormCreateResponseDto;
-import com.example.backend.infra.google.dto.GoogleFormQuestionsIdsResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -48,5 +46,27 @@ public class EventCommandServiceImpl implements EventCommandService{
         log.info("[EVENT][SERVICE][CREATE] 구글 폼 이벤트 저장 완료 | eventId: {}", save.getId());
 
         return eventResponseConverter.toCreatedFormEventDto(save, googleFormCreateResponseDto);
+    }
+
+    /**
+     * 마지막 응답 시간 업데이트
+     * @param eventEntity : 이벤트 정보
+     * @param lastResponseTime : 마지막 응답 시간
+     */
+    @Override
+    public void updateLastResponseTime(EventEntity eventEntity, LocalDateTime lastResponseTime) {
+        eventEntity.setLastResponseTime(lastResponseTime);
+        eventCommandRepository.save(eventEntity);
+    }
+
+    /**
+     * 다음 검색 시간 업데이트
+     * @param eventEntity : 이벤트 정보
+     * @param nextPollingAt : 다음 검색 시간
+     */
+    @Override
+    public void updateNextPollingAt(EventEntity eventEntity, LocalDateTime nextPollingAt) {
+        eventEntity.setNextPollingAt(nextPollingAt);
+        eventCommandRepository.save(eventEntity);
     }
 }

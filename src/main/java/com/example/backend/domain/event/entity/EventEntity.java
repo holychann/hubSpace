@@ -61,4 +61,12 @@ public class EventEntity {
 
     @Column(name = "last_response_time")
     private LocalDateTime lastResponseTime;
+
+    public void setLastResponseTime(LocalDateTime lastResponseTime){
+        this.lastResponseTime = lastResponseTime;
+    }
+
+    public void setNextPollingAt(LocalDateTime nextPollingAt){
+        this.nextPollingAt = nextPollingAt;
+    }
 }
