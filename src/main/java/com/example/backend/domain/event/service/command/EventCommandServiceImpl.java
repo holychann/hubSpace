@@ -8,6 +8,7 @@ import com.example.backend.domain.event.entity.EventEntity;
 import com.example.backend.domain.event.entity.EventMetadataEntity;
 import com.example.backend.domain.event.repository.command.EventCommandRepository;
 import com.example.backend.domain.event.repository.command.EventMetadataCommandRepository;
+import com.example.backend.domain.event.repository.query.EventMetadataQueryRepository;
 import com.example.backend.domain.user.entity.UserEntity;
 import com.example.backend.infra.google.dto.GoogleFormCreateResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class EventCommandServiceImpl implements EventCommandService{
     private final EventMetadataCommandRepository eventMetadataCommandRepository;
     private final EventRequestConverter eventRequestConverter;
     private final EventResponseConverter eventResponseConverter;
+    private final EventMetadataQueryRepository eventMetadataQueryRepository;
 
     @Override
     public EventResponseDto.CreatedFormEvent createFormEvent(
@@ -82,9 +84,25 @@ public class EventCommandServiceImpl implements EventCommandService{
         eventCommandRepository.save(eventEntity);
     }
 
+    /**
+     * 다음 검색 시간 업데이트
+     * @param eventEntity : 이벤트 정보
+     * @param nextPollingAt : 다음 검색 시간
+     */
     @Override
     public void updateNextPollingAt(EventEntity eventEntity, LocalDateTime nextPollingAt) {
         eventEntity.updateNextPollingAt(nextPollingAt);
         eventCommandRepository.save(eventEntity);
+    }
+
+    /**
+     * 응답 수 업데이트
+     * @param eventEntity : 이벤트 정보
+     * @param count : 응답 수
+     */
+    @Override
+    public void updateCount(EventEntity eventEntity, Long count) {
+        EventMetadataEntity meta = eventMetadataQueryRepository.findByEventId(eventEntity.getId());
+        meta.updateCount(meta.getCount() + count);
     }
 }

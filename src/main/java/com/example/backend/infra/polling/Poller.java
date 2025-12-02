@@ -68,6 +68,8 @@ public class Poller {
             // 응답 저장
             responseCommandService.saveResponses(formResponses, event.event().getId());
 
+            eventCommandService.updateCount(event.event(), (long) formResponses.size());
+
             // 다음 검색 시간 업데이트
             String createTimeStr = formResponses.get(formResponses.size() - 1).getCreateTime();
             LocalDateTime laseCreateTime = OffsetDateTime.parse(createTimeStr).toLocalDateTime();

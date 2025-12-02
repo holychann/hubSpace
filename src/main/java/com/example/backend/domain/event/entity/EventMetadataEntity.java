@@ -70,4 +70,8 @@ public class EventMetadataEntity {
         this.formUrl = formUrl;
     }
 
+    public void updateCount(Long count) {
+        this.count = count;
+    }
+
 }

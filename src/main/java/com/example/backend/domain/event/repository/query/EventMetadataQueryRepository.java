@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EventMetadataQueryRepository extends JpaRepository<EventMetadataEntity, Long> {
+    EventMetadataEntity findByEventId(Long eventId);
 }

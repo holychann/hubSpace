@@ -20,4 +20,5 @@ public interface EventCommandService {
     void updateNextPollingAtAndLastResponseTime(EventEntity eventEntity, LocalDateTime nextPollingAt, LocalDateTime lastResponseTime);
     void updateEventStatus(EventEntity eventEntity, Boolean isActive);
     void updateNextPollingAt(EventEntity eventEntity, LocalDateTime nextPollingAt);
+    void updateCount(EventEntity eventEntity, Long count);
 }
