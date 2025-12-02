@@ -123,7 +123,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/user").hasRole(UserRoleType.USER.name())
                         .requestMatchers(HttpMethod.PUT, "/user").hasRole(UserRoleType.USER.name())
                         .requestMatchers(HttpMethod.DELETE, "/user").hasRole(UserRoleType.USER.name())
-                        .requestMatchers(HttpMethod.GET, "/response/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/events/*/search").permitAll()
                         .anyRequest().authenticated()
                 );
 
