@@ -52,4 +52,10 @@ public class EventEntity {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "next_polling_at")
+    private LocalDateTime nextPollingAt;
+
+    @Column(name = "last_polling_at")
+    private LocalDateTime lastPollingAt;
 }
