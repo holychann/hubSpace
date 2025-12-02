@@ -37,9 +37,9 @@ public class EventCommandServiceImpl implements EventCommandService{
 
         log.info("[EVENT][SERVICE][CREATE] 구글 폼 이벤트 저장 시작 | formId: {}", googleFormCreateResponseDto.getFormId());
 
-        long id = ThreadLocalRandom.current().nextLong(Long.MAX_VALUE);
 
-        EventEntity eventEntity = eventRequestConverter.formDtoToEntity(eventRequestDto, userEntity, id);
+        EventEntity eventEntity = eventRequestConverter.formDtoToEntity(eventRequestDto, userEntity);
+
         EventMetadataEntity eventMetadataEntity = eventRequestConverter.formDtoToMetadataEntity(
                 eventRequestDto,
                 eventEntity,

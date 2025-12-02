@@ -1,6 +1,7 @@
 package com.example.backend.domain.event.entity;
 
 import com.example.backend.domain.user.entity.UserEntity;
+import io.hypersistence.utils.hibernate.id.Tsid;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 public class EventEntity {
 
     @Id
-    @GeneratedValue
+    @Tsid
     private Long id;
     
     @JoinColumn(name = "user_id", nullable = false)

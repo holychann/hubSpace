@@ -21,9 +21,8 @@ public class EventRequestConverter {
      * @param dto : CreateFormEvent DTO
      * @return EventEntity
      */
-    public static EventEntity formDtoToEntity(EventRequestDto.CreateFormEvent dto, UserEntity userEntity, Long id) {
+    public static EventEntity formDtoToEntity(EventRequestDto.CreateFormEvent dto, UserEntity userEntity) {
         return EventEntity.builder()
-                .id(id)
                 .eventTitle(dto.getEventTitle())
                 .user(userEntity)
                 .eventType(dto.getEventType())
