@@ -4,6 +4,7 @@ import com.example.backend.domain.response.dto.ResponseQueryDto;
 import com.example.backend.domain.response.entity.ResponseEntity;
 import com.example.backend.global.error.BusinessException;
 import com.example.backend.global.error.ErrorCode;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -17,15 +18,11 @@ import java.util.Map;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ResponseQueryServiceImpl implements ResponseQueryService{
 
-    private final DynamoDbEnhancedClient dynamoDbEnhancedClient;
     private final DynamoDbTable<ResponseEntity> responseTable;
 
-    public ResponseQueryServiceImpl(DynamoDbEnhancedClient dynamoDbEnhancedClient, DynamoDbTable<ResponseEntity> responseTable) {
-        this.dynamoDbEnhancedClient = dynamoDbEnhancedClient;
-        this.responseTable = responseTable;
-    }
 
     /**
      * 응답을 조회하는 메서드

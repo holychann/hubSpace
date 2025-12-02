@@ -8,6 +8,7 @@ import com.example.backend.infra.google.dto.GoogleFormCreateResponseDto;
 import com.example.backend.infra.google.dto.GoogleFormQuestionsIdsResponseDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -26,6 +27,8 @@ public class EventRequestConverter {
                 .eventType(dto.getEventType())
                 .eventStartTime(dto.getEventStartTime())
                 .eventEndTime(dto.getEventEndTime())
+                .lastResponseTime(LocalDateTime.now())
+                .nextPollingAt(LocalDateTime.now().plusMinutes(1))
                 .isActive(true)
                 .build();
     }
