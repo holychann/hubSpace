@@ -102,6 +102,7 @@ public class EventResponseDto {
     @NoArgsConstructor
     public static class SearchColumnsAndEventId{
         private Long eventId;
+        private String eventTitle;
         private List<String> searchColumns;
     }
 }

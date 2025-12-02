@@ -104,9 +104,15 @@ public class EventResponseConverter {
                 .build();
     }
 
+    /**
+     * 이벤트 ID와 검색 열 정보를 담은 DTO
+     * @param eventWithMetadataDto : EventWithMetadataDto
+     * @return SearchColumnsAndEventId
+     */
     public static SearchColumnsAndEventId toSearchColumnsAndEventIdDto(EventWithMetadataDto eventWithMetadataDto) {
         return SearchColumnsAndEventId.builder()
                 .eventId(eventWithMetadataDto.event().getId())
+                .eventTitle(eventWithMetadataDto.event().getEventTitle())
                 .searchColumns(eventWithMetadataDto.metadata().getSearchColumns())
                 .build();
     }

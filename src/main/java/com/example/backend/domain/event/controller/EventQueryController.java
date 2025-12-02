@@ -30,7 +30,7 @@ public class EventQueryController {
      * @param username : 로그인한 사용자 정보
      * @return SearchList
      */
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<ApiResponseDto<SearchList>> searchLish(
             @AuthenticationPrincipal String username
     ){
@@ -53,9 +53,9 @@ public class EventQueryController {
      * @param username : 로그인한 사용자 정보
      * @return EventDetail
      */
-    @GetMapping("/{id}")
+    @GetMapping("/{eventId}")
     public ResponseEntity<ApiResponseDto<EventDetail>> searchEvent(
-            @PathVariable("id") Long id,
+            @PathVariable("eventId") Long id,
             @AuthenticationPrincipal String username
     ){
         long start = System.currentTimeMillis();
@@ -75,9 +75,9 @@ public class EventQueryController {
      * @param id : 이벤트 ID
      * @return IsActive
      */
-    @GetMapping("/{id}/isActive")
+    @GetMapping("/{eventId}/isActive")
     public ResponseEntity<ApiResponseDto<IsActive>> isExistsEvent(
-            @PathVariable("id") Long id
+            @PathVariable("eventId") Long id
     ){
         long start = System.currentTimeMillis();
 
@@ -92,6 +92,28 @@ public class EventQueryController {
 
         return ResponseEntity.ok(ApiResponseDto.success(isActive));
 
+    }
+
+    /**
+     * 이벤트의 검색 컬럼 정보 조회
+     * @param id : 이벤트 ID
+     * @return SearchColumnsAndEventId
+     */
+    @GetMapping("/{eventId}/searchColumns")
+    public ResponseEntity<ApiResponseDto<SearchColumnsAndEventId>> getSearchColumns(
+            @PathVariable("eventId") Long id
+    ){
+        long start = System.currentTimeMillis();
+        log.info("[EVENT][CTRL][REQUEST] /events/{}/searchColumns GET start", id);
+
+        SearchColumnsAndEventId searchColumns = eventQueryService.getEventColumns(id);
+
+        long end = System.currentTimeMillis();
+        long elapsed = end - start;
+
+        log.info("[EVENT][CTRL][RESPONSE] /events/{}/searchColumns GET end | 걸린시간: {}", id, elapsed);
+
+        return ResponseEntity.ok(ApiResponseDto.success(searchColumns));
     }
 
 }
