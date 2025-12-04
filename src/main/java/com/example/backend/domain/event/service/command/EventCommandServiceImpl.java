@@ -14,6 +14,7 @@ import com.example.backend.infra.google.dto.GoogleFormCreateResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,6 +31,7 @@ public class EventCommandServiceImpl implements EventCommandService{
     private final EventMetadataQueryRepository eventMetadataQueryRepository;
 
     @Override
+    @Transactional
     public EventResponseDto.CreatedFormEvent createFormEvent(
             UserEntity userEntity, EventRequestDto.CreateFormEvent eventRequestDto,
             GoogleFormCreateResponseDto googleFormCreateResponseDto
@@ -59,6 +61,7 @@ public class EventCommandServiceImpl implements EventCommandService{
      * @param lastResponseTime : 마지막 응답 시간
      */
     @Override
+    @Transactional
     public void updateLastResponseTime(EventEntity eventEntity, LocalDateTime lastResponseTime) {
         eventEntity.updateLastResponseTime(lastResponseTime);
         eventCommandRepository.save(eventEntity);
@@ -70,6 +73,7 @@ public class EventCommandServiceImpl implements EventCommandService{
      * @param nextPollingAt : 다음 검색 시간
      */
     @Override
+    @Transactional
     public void updateNextPollingAtAndLastResponseTime(EventEntity eventEntity, LocalDateTime nextPollingAt, LocalDateTime lastResponseTime) {
         eventEntity.updateNextPollingAt(nextPollingAt);
         eventEntity.updateLastResponseTime(lastResponseTime);
@@ -82,6 +86,7 @@ public class EventCommandServiceImpl implements EventCommandService{
      * @param isActive : 활성화 여부
      */
     @Override
+    @Transactional
     public void updateEventStatus(EventEntity eventEntity, Boolean isActive) {
         eventEntity.updateIsActive(isActive);
         eventCommandRepository.save(eventEntity);
@@ -93,6 +98,7 @@ public class EventCommandServiceImpl implements EventCommandService{
      * @param nextPollingAt : 다음 검색 시간
      */
     @Override
+    @Transactional
     public void updateNextPollingAt(EventEntity eventEntity, LocalDateTime nextPollingAt) {
         eventEntity.updateNextPollingAt(nextPollingAt);
         eventCommandRepository.save(eventEntity);
@@ -104,6 +110,7 @@ public class EventCommandServiceImpl implements EventCommandService{
      * @param count : 응답 수
      */
     @Override
+    @Transactional
     public void updateCount(EventEntity eventEntity, Long count) {
         EventMetadataEntity meta = eventMetadataQueryRepository.findByEventId(eventEntity.getId());
         long delta = count - meta.getCount();
