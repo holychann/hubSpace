@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,6 +38,7 @@ public class EventQueryServiceImpl implements EventQueryService{
      * @return SearchList
      */
     @Override
+    @Transactional(readOnly = true)
     public SearchList getEventList(UserEntity userEntity) {
 
         List<EventWithMetadataDto> eventData = eventQueryRepository.findByUserIdAndIsActive(userEntity, true);
@@ -52,6 +54,7 @@ public class EventQueryServiceImpl implements EventQueryService{
      * @return EventDetail
      */
     @Override
+    @Transactional(readOnly = true)
     public EventDetail getEventDetail(UserEntity userEntity, Long eventId) {
 
         EventWithMetadataDto eventData = eventQueryRepository.findByUserIdAndEventIdAndIsActive(userEntity, eventId, true);
@@ -71,6 +74,7 @@ public class EventQueryServiceImpl implements EventQueryService{
      * @return Boolean
      */
     @Override
+    @Transactional(readOnly = true)
     public IsActive getEventIsActive(Long eventId) {
 
         Boolean result = eventQueryRepository.existsById(eventId);
@@ -84,6 +88,7 @@ public class EventQueryServiceImpl implements EventQueryService{
      * @return SearchColumnsAndEventId
      */
     @Override
+    @Transactional(readOnly = true)
     public SearchColumnsAndEventId getEventColumns(Long eventId) {
 
         EventWithMetadataDto eventWithMetadata = eventQueryRepository.findByEventIdAndIsActive(eventId, true);
@@ -102,6 +107,7 @@ public class EventQueryServiceImpl implements EventQueryService{
      * @return
      */
     @Override
+    @Transactional(readOnly = true)
     public List<EventWithMetadataDto> getNextPollingEvents(LocalDateTime threshold) {
         return eventQueryRepository.findByNextPollingAtBefore(threshold);
     }
