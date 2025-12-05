@@ -2,6 +2,8 @@ package com.example.backend.infra.google.drive;
 
 import com.example.backend.domain.user.entity.UserEntity;
 import com.example.backend.domain.user.service.UserService;
+import com.example.backend.global.error.BusinessException;
+import com.example.backend.global.error.ErrorCode;
 import com.example.backend.infra.google.dto.GoogleFormCreateResponseDto;
 import com.example.backend.infra.google.dto.GoogleFormQuestionsIdsResponseDto;
 import com.example.backend.infra.google.dto.GoogleFormResponseDto;
@@ -105,9 +107,9 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
      * @return Google Form 파일 생성 결과(url, id)
      */
     @Override
-    public GoogleFormCreateResponseDto createFormInDrive(String username, String formTitle, List<String> searchColumns, String refreshToken) throws Exception {
+    public GoogleFormCreateResponseDto createFormInDrive(String username, String formTitle, List<String> searchColumns, String refreshToken) {
 
-
+        try {
             log.info("📋[GOOGLE][FORM][START] Google Form 파일 생성 시작 | username: {}, formName: {}", username, formTitle);
             String accessToken = getValidAccessToken(username);
 
@@ -124,7 +126,13 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 
             // 응답 목록 반환
             return GoogleFormCreateResponseDto.of(formId, formUrl, googleFormQuestionsIdsResponseDto);
-
+        } catch (IOException e){
+            throw new BusinessException(ErrorCode.GOOGLE_INVALID_GRANT);
+        } catch (GeneralSecurityException e){
+            throw new BusinessException(ErrorCode.GOOGLE_SECURITY_ERROR);
+        } catch (Exception e){
+            throw new BusinessException(ErrorCode.GOOGLE_API_ERROR);
+        }
     }
 
     /**
