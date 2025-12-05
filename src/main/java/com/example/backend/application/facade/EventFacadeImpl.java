@@ -63,6 +63,7 @@ public class EventFacadeImpl implements EventFacade{
      * @param username : 사용자 username
      * @param eventRequestDto : Google Form 생성 요청 DTO
      * @return CreatedFormEvent
+     * TODO: 서비스 내 이벤트 생성 실패 시 보상 로직 구현
      */
     @Override
     public CreatedFormEvent createFormEvent(String username, EventRequestDto.CreateFormEvent eventRequestDto) {
