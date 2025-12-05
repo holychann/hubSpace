@@ -40,4 +40,7 @@ public class EventCommandController {
 
         return ResponseEntity.ok(ApiResponseDto.success(formInfo));
     }
+
+    // TODO: CSV 이벤트용 API 로직 구현
+    
 }
