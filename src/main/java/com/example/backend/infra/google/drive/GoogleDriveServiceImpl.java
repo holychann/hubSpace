@@ -105,8 +105,8 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
      * @return Google Form 파일 생성 결과(url, id)
      */
     @Override
-    public GoogleFormCreateResponseDto createFormInDrive(String username, String formTitle, List<String> searchColumns, String refreshToken) {
-        try {
+    public GoogleFormCreateResponseDto createFormInDrive(String username, String formTitle, List<String> searchColumns, String refreshToken) throws Exception {
+
 
             log.info("📋[GOOGLE][FORM][START] Google Form 파일 생성 시작 | username: {}, formName: {}", username, formTitle);
             String accessToken = getValidAccessToken(username);
@@ -125,10 +125,6 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
             // 응답 목록 반환
             return GoogleFormCreateResponseDto.of(formId, formUrl, googleFormQuestionsIdsResponseDto);
 
-        } catch (Exception e) {
-            log.error("구글 드라이브 작업 중 오류 발생", e);
-            throw new RuntimeException("구글 드라이브 파일 생성 실패", e);
-        }
     }
 
     /**

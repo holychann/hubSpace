@@ -21,7 +21,8 @@ public enum ErrorCode {
     DATA_INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "DATA-400", "잘못된 입력 값입니다."),
 
     /* 이벤트 */
-    EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "EVENT-404", "이벤트가 존재하지 않습니다.");
+    EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "EVENT-404", "이벤트가 존재하지 않습니다."),
+    EVENT_INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "EVENT-400", "유효한 값을 입력해 주세요.");
 
     private final HttpStatus httpStatus;  // HTTP 상태코드
     private final String code;  // 에러 코드

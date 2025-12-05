@@ -12,6 +12,7 @@ public class EventRequestDto {
 
     /**
      * Google Form 생성 요청 DTO
+     * TODO: 유효성 검사 Validation 로직 추가
      */
     @Builder
     @Getter

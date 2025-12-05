@@ -12,6 +12,6 @@ import java.util.List;
 public interface GoogleDriveService {
     String getValidAccessToken(String username) throws IOException;
     AccessToken refreshAccessToken(String refreshToken) throws IOException;
-    GoogleFormCreateResponseDto createFormInDrive(String username, String formName, List<String> searchColumns, String refreshToken);
+    GoogleFormCreateResponseDto createFormInDrive(String username, String formName, List<String> searchColumns, String refreshToken) throws Exception;
     List<GoogleFormResponseDto> getFormResponses(String formId, String accessToken, List<String> searchColumnIds, LocalDateTime lastResponseTime) throws IOException;
 }

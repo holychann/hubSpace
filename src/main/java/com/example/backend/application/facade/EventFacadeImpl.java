@@ -75,6 +75,8 @@ public class EventFacadeImpl implements EventFacade{
                 eventRequestDto.getSearchColumns(),
                 userEntity.getGoogleRefreshToken());
 
-        return eventCommandService.createFormEvent(userEntity, eventRequestDto, googleFormResponse);
+        CreatedFormEvent formEvent = eventCommandService.createFormEvent(userEntity, eventRequestDto, googleFormResponse);
+
+        return formEvent;
     }
 }
