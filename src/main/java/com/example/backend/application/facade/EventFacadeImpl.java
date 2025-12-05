@@ -34,7 +34,7 @@ public class EventFacadeImpl implements EventFacade{
     /**
      * 이벤트 리스트 조회
      * @param username : 사용자 username
-     * @return SearchList
+     * @return SearchList | 이벤트가 없을 경우 null 
      */
     @Override
     public SearchList getEventList(String username) {
