@@ -91,12 +91,10 @@ public class EventQueryServiceImpl implements EventQueryService{
     @Transactional(readOnly = true)
     public SearchColumnsAndEventId getEventColumns(Long eventId) {
 
-        EventWithMetadataDto eventWithMetadata = eventQueryRepository.findByEventIdAndIsActive(eventId, true);
+        // 이벤트 조회 | 존재하지 않으면 예외 발생
+        EventWithMetadataDto eventWithMetadata = eventQueryRepository.findByEventIdAndIsActive(eventId, true)
+                .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
 
-        // 이벤트가 존재하지 않으면 예외 발생
-        if(eventWithMetadata == null) {
-            throw new BusinessException(ErrorCode.EVENT_NOT_FOUND);
-        }
 
         return eventResponseConverter.toSearchColumnsAndEventIdDto(eventWithMetadata);
     }

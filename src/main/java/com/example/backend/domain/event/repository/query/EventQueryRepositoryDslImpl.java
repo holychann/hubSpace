@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class EventQueryRepositoryDslImpl implements EventQueryRepositoryDsl {
@@ -54,12 +55,12 @@ public class EventQueryRepositoryDslImpl implements EventQueryRepositoryDsl {
     }
 
     @Override
-    public EventWithMetadataDto findByEventIdAndIsActive(Long eventId, Boolean isActive) {
+    public Optional<EventWithMetadataDto> findByEventIdAndIsActive(Long eventId, Boolean isActive) {
 
         QEventMetadataEntity metadata = QEventMetadataEntity.eventMetadataEntity;
         QEventEntity event = QEventEntity.eventEntity;
 
-        return queryFactory
+        return Optional.ofNullable(queryFactory
                 .select(Projections.constructor(
                         EventWithMetadataDto.class,
                         event,
@@ -68,7 +69,8 @@ public class EventQueryRepositoryDslImpl implements EventQueryRepositoryDsl {
                 .from(metadata)
                 .join(metadata.event, event)
                 .where(event.id.eq(eventId).and(event.isActive.eq(isActive)))
-                .fetchOne();
+                .fetchOne()
+        );
     }
 
     @Override
